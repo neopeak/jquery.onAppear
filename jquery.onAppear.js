@@ -1,5 +1,5 @@
 /*
- * jQuery.onAppear v0.1.0
+ * jQuery.onAppear v0.1.1
  * https://github.com/neopeak/jquery.onAppear
  *
  * Copyright 2014, Cedric Veilleux <cveilleux@neopeak.com>
@@ -61,27 +61,29 @@
     var viewportRect = getViewport(instance.options.container);
 
     // find the elements that are in viewport
-    var visibleIndexes = [];
+    var newList = [];
     for(var i = 0; i < instance.items.length; i++) {
       if (inViewport(instance.items[i], viewportRect)) {
         $(instance.items[i]).trigger(instance.options.event);
-        visibleIndexes.push(i);
+
+      } else if (instance.options.once) {
+        // item not visible, we will try again next time
+        newList.push(instance.items[i]);
       }
     }
 
     // clean up if 'once' options is enabled
     if (instance.options.once) {
-      for(var i = 0; i < visibleIndexes.length; i++) {
-        instance.items.splice(visibleIndexes[i], 1);
-      }
+      instance.items = newList;
     }
+
   }
 
   $.fn.initAppear = function(options) {
     // do nothing if nothing selected
-    if($(this).length == 0) 
+    if($(this).length == 0)
       return;
-    
+
     var defaults = {
       container: $(window),
       scrollDelay: 200,
@@ -96,7 +98,7 @@
     var instanceChecker = function() {
       delayedAppearCheck(instance);
     };
-    
+
     options.container.on('scroll', instanceChecker);
     $(window).on('resize', instanceChecker);
 

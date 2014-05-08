@@ -2,7 +2,7 @@
   "name": "onAppear",
   "title": "jQuery onAppear",
   "description": "Triggers an appear event, indicating an element is now within the window or any scrollable element's viewport.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/neopeak/jquery.onAppear",
   "author": {
     "name": "Cedric Veilleux",
