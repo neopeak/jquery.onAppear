@@ -1,0 +1,31 @@
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="jquery.onAppear.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(function() {
+      var lazyImgs = $("img.lazy");
+      lazyImgs.css('opacity', '0');
+
+      // make sure you bind on appear before doing the init, as initAppear will trigger immediately for on screen items when the page loads.
+      lazyImgs.on('appear', function() {
+        $(this).attr('src', $(this).attr('data-src'));
+        $(this).hide();
+        $(this).css('opacity', '1');
+        $(this).fadeIn(1000);
+      });
+
+      lazyImgs.initAppear({once: true, container: $('#container')});
+    });
+  </script>
+</head>
+<body>
+  <h1>jQuery.onAppear demo inside a scrollable div</h1>
+  <div style="height: 300px; border: 1px solid #ccc; overflow-y: scroll;" id="container">
+    <h1>Lazy loading images</h1>
+    <p>Scroll down</p>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <img data-src="https://www.google.ca/images/srpr/logo11w.png" class="lazy" width="538" height="190" />
+  </div>
+</body>
+</html>

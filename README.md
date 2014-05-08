@@ -15,13 +15,13 @@ There are many similar jQuery plugins available but none that worked for my need
 - Can be stacked: A large element that is lazy loaded when it 'appears' can insert smaller placeholders that are also lazy loaded. 
 - Can be enabled on different elements with different options (multiple instances).
 - Waits for the user to stop scrolling before firing the event, avoids loading hundreds of items if a user scrolls fast over a large page.
+- Small and simple code-base, only ~100 lines, less than 1kB minified/gzipped.
 
 ## Usage
 
-For performance reasons, the plugin will only fire 'appear' events for the elements you initialize it with.
+The plugin will only fire 'appear' events for the elements you initialize it with.
 
 ```js
-$(selector).initAppear();
 $(selector).on('appear', function() {
   // This gets executed when the item becomes visible.
   // Do whatever you need here, like replacing the element with something more fancy, animating the element,
@@ -31,28 +31,24 @@ $(selector).on('appear', function() {
   $(this).hide();
   $(this).fadeIn();
 });
+
+// call initAppear() after your appear event handler(s) are bound.
+$(selector).initAppear();
 ```
 
+For a more complex example, see demo.html.
 
-Here is a more complex example. Suppose you want to lazy-load and fade-in images when they appear, to create a nice effect and reduce bandwidth
 
-```html
-<html>
-<body>
-<p>Some long text here</p>
-<img data-src="mypicture.jpg" class="lazy" />
-</body>
-</html>
-```
+## Options
+
+The initAppear() accepts the following options. Below are the defaults:
 
 ```js
-var lazyImgs = $("img.lazy");
-lazyImgs.css('opacity': '0');
-lazyImgs.initAppear();
-lazyImgs.on('appear', function() {
-  $(this).attr('src', $(this).attr('data-src'));
-  $(this).fadeIn();
-});
+{
+  container: $(window), // The element on which the plugin will listen for 'scroll' events. Should be the window or your scrollable block element.
+  scrollDelay: 200, // Waits 200 msecs for the user to stop scrolling before firing. Recommended for performance, but can be set to 0.
+  event: 'appear', // The event name to trigger. Can be set to any string.
+  once: false, // Trigger the event only once, usefull if you are lazy loading content
+};
 ```
-
 
