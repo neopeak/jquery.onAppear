@@ -1,0 +1,26 @@
+{
+  "name": "onAppear",
+  "title": "jQuery onAppear",
+  "description": "Triggers an appear event, indicating an element is now within the window or any scrollable element's viewport.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/neopeak/jquery.onAppear",
+  "author": {
+    "name": "Cedric Veilleux",
+    "email": "cveilleux@neopeak.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:neopeak/jquery.onAppear.git"
+  },
+  "bugs": "https://github.com/neopeak/jquery.onAppear/issues",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "https://github.com/neopeak/jquery.onAppear/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.7"
+  },
+  "keywords": ["appear", "viewport", "scroll", "load", "lazyload", "ajax"]
+}
