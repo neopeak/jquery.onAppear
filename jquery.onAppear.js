@@ -1,5 +1,5 @@
 /*
- * jQuery.onAppear v0.1.1
+ * jQuery.onAppear v0.1.2
  * https://github.com/neopeak/jquery.onAppear
  *
  * Copyright 2014, Cedric Veilleux <cveilleux@neopeak.com>
@@ -11,7 +11,7 @@
   function inViewport(element, viewportRect) {
     var elementRect = element.getBoundingClientRect();
 
-    // the element is visible if it has at least one of its corner in the container
+    // Visible if it has at least one of its corner in the container
     var corners = [{x: elementRect.left, y: elementRect.top},
                    {x: elementRect.right, y: elementRect.top},
                    {x: elementRect.left, y: elementRect.bottom},
@@ -25,6 +25,16 @@
           corner.x <= viewportRect.right) {
         return true;
       }
+    }
+    
+    // Visible if taller than viewport
+    if (elementRect.top <= viewportRect.top && elementRect.bottom >= viewportRect.bottom) {
+      return true;
+    }
+    
+    // Visible if wider than viewport
+    if (elementRect.left <= viewportRect.left && elementRect.right >= viewportRect.right) {
+      return true;
     }
 
     return false;
