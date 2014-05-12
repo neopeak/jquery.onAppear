@@ -26,18 +26,29 @@
         return true;
       }
     }
-    
+
     // Visible if taller than viewport
     if (elementRect.top <= viewportRect.top && elementRect.bottom >= viewportRect.bottom) {
       return true;
     }
-    
+
     // Visible if wider than viewport
     if (elementRect.left <= viewportRect.left && elementRect.right >= viewportRect.right) {
       return true;
     }
 
     return false;
+  }
+
+  /**
+   * Checks if a container still contains an element.
+   */
+  function elementIsInContainer(container, element) {
+    if (container[0] == window) {
+      return $('body')[0].contains(element);
+    } else {
+      return container[0].contains(element);
+    }
   }
 
   function getViewport(container) {
@@ -73,19 +84,26 @@
     // find the elements that are in viewport
     var newList = [];
     for(var i = 0; i < instance.items.length; i++) {
-      if (inViewport(instance.items[i], viewportRect)) {
-        $(instance.items[i]).trigger(instance.options.event);
 
-      } else if (instance.options.once) {
-        // item not visible, we will try again next time
+      var keepItem = true;
+
+      // check if the element is still in the container
+      if (!elementIsInContainer(instance.options.container, instance.items[i])) {
+        // item is no longer inside the container. It has probably been cleaned-up by another script.
+        keepItem = false;
+
+      } else if (inViewport(instance.items[i], viewportRect)) {
+        $(instance.items[i]).trigger(instance.options.event);
+        keepItem = !instance.options.once;
+
+      }
+
+      if (keepItem) {
         newList.push(instance.items[i]);
       }
     }
 
-    // clean up if 'once' options is enabled
-    if (instance.options.once) {
-      instance.items = newList;
-    }
+    instance.items = newList;
 
   }
 
