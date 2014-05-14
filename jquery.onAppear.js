@@ -9,6 +9,11 @@
 ;(function($) {
 
   function inViewport(element, viewportRect) {
+
+    if (!$(element).is(':visible')) {
+      return false;
+    }
+
     var elementRect = element.getBoundingClientRect();
 
     // Visible if it has at least one of its corner in the container
